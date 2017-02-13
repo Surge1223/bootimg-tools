@@ -1,0 +1,9 @@
+*.a
+*.o
+*.exe
+*.patch
+*.diff
+*~
+*.bak
+bin/*
+libs/*
