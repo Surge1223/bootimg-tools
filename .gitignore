@@ -7,3 +7,4 @@
 *.bak
 bin/*
 libs/*
+*.DS_Store
