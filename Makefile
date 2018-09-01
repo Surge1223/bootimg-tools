@@ -6,8 +6,8 @@ AR=$(TOOLCHAIN)ar
 CFLAGS  += -Wall -Wextra -Wno-unused-parameter -pipe
 CFLAGS  += -std=c99 -D_GNU_SOURCE  -Ilibfdt -DANDROID
 CFLAGS  += -Iinclude -fPIC -Ilibz -I./ -Ilibufdt
-LDFLAGS := -Llibfdt/ -Llibs -lcrypto -lufdt_sysdeps
-FDTLDFLAGS += -Llibz -Llibs -lcrypto
+LDFLAGS := -static  -Llibfdt/ -Llibs -lcrypto -lufdt_sysdeps
+FDTLDFLAGS += -static -Llibz -Llibs -lcrypto
 UFDTFLAGS += -lfdt -lufdt_sysdeps
 
 BINDIR := bin
@@ -149,7 +149,7 @@ libufdt: $(LIBFDT_OBJS) $(LIBUFDT_SYSDEPS_OBJS) $(LIBUFDT_OBJS)
 	$(CC) -c $(CFLAGS) $(LIBUFDT_SRCS) $(FDTLDFLAGS) $(UFDTFLAGS)
 	$(AR) rs $(LIBDIR)/libufdt.a $^
 
-mkbootimg:  $(CRYPTOBJ_FILES) $(LIBFDT_OBJS) mkbootimg/mkbootimg.o
+mkbootimg: $(CRYPTOBJ_FILES)  mkbootimg/mkbootimg.o
 	$(CC) -o $(BINDIR)/$@ $^ $(LDFLAGS) $(CFLAGS)
 
 untgz:  $(LIBZ_OBJS) untargz/untgz.o
